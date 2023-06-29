@@ -1,22 +1,62 @@
-data = open('sketch.txt')
+# import os
 
-frase = "Casi la cago bien cagada Julio"
+man = []
+other = []
+try:
+    data = open('sketch.txt')
+    for line in data:
+        try:
+            (quien, dialogo) = line.split(':', 1)
+            line = line.strip()
+            if quien == 'Man':
+                man.append(dialogo)
+            elif quien == 'Other Man':
+                other.append(dialogo)
+        except ValueError:
+            pass
+    data.close()
+except FileNotFoundError:
+    print("There is no such file")
 
-print(frase.find(":"))
+try:
+    man_file = open("man_data.txt", "w")
+    other_file = open("other_data.txt", "w")
+
+    print(man, file=man_file)
+    print(other, file=other_file)
+
+except FileNotFoundError:
+    print("There are no such files")
+
+finally:
+    man_file.close()
+    other_file.close()
+
+# same as below but there is error handling. If for some reason the file can not be open or read the proper
+# way the correspondent error is handled. The latter one is just ignored, while the first one
+# prints an error message if the file hasn't been found.
 
 
-data.seek(0)
-for line in data:
-    if line.find(':') != -1:
-        (quien, dialogo) = line.split(':', 1)
-        print(quien, end='')
-        print(' said: ', end='')
-        print(dialogo, end='')
+'''
+if os.path.exists('sketch.txt'):
+    data = open('sketch.txt')
+    for line in data:
+        if line.find(':') != -1:
+            (quien, dialogo) = line.split(':', 1)
+            print(quien, end='')
+            print(' said: ', end='')
+            print(dialogo, end='')
+    data.close()
+else:
+    print("Such file does not exist")
+'''
 
-data.close()
+# The code above reads a file if found. There's no error handling because whether the file
+# exists or not is checked beforehand
 
+oso = open("osoPolar.txt", "w")
+# ballena = open("ballena.txt" "w")
+# print("Las ballenas son los mayores animales del planeta tierra", file=ballena)
+print("Los osos polares son los mayores depredadores de tierra firme", file=oso)
 
-'''Problemas: ¿Vas a hacer un if para cada posible error que tengas? Qué
-ocurre con los archivos más grandes? Vas a ejecutarlos hasta que después de 1000 intentos ya
-no te den más errores? Tiene que haber algún modo de quitarnos de ifs, porque en este
-tipo de ficheros simples funciona, pero en algunos más grandes no va a funcionar pero ni d coña.'''
+oso.close()
