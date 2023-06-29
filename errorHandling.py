@@ -18,19 +18,15 @@ try:
 except FileNotFoundError:
     print("There is no such file")
 
+# Nuevo code
 try:
-    man_file = open("man_data.txt", "w")
-    other_file = open("other_data.txt", "w")
-
-    print(man, file=man_file)
-    print(other, file=other_file)
+    with open("man_data.txt", "w") as man_file:
+        print(man, file=man_file)
+    with open("other_data.txt", "w") as other_file:
+        print(other, file=other_file)
 
 except FileNotFoundError:
     print("There are no such files")
-
-finally:
-    man_file.close()
-    other_file.close()
 
 # same as below but there is error handling. If for some reason the file can not be open or read the proper
 # way the correspondent error is handled. The latter one is just ignored, while the first one
