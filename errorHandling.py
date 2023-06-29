@@ -60,3 +60,25 @@ oso = open("osoPolar.txt", "w")
 print("Los osos polares son los mayores depredadores de tierra firme", file=oso)
 
 oso.close()
+
+
+# Duda que tenía antes. Efectivamente no puedes cerrar con un .close() algo no declarado.
+# por tanto hay que hacer un if para que el finally no pete.
+
+'''try:
+    datados = open("missing.txt")
+    print(datados.readline(), end='')
+except FileNotFoundError as fileNotFound:
+    print("No file has been found and a " + str(fileNotFound) + " error has occured")
+finally:
+    if 'datados' in locals():
+        datados.close()
+
+# hay mucha lógica extra que solapa el verdadero comportamiento del código.
+# El try/except/finally es tan común que Python abstrae este patrón para hacerlo más simple.
+
+try:
+    with open("missing.txt") as datados:
+        print(datados.readline(), end='')
+except FileNotFoundError as err:
+    print("Error: " + str(err)) '''
